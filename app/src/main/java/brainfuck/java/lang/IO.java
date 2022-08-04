@@ -1,7 +1,6 @@
 package brainfuck.java.lang;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 public class IO {
     Context ctx;

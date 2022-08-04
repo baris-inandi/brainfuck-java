@@ -1,7 +1,6 @@
 package brainfuck.java.lang;
 
 import java.util.HashMap;
-import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
 public class Context {
