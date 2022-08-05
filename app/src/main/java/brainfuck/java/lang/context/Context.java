@@ -1,14 +1,24 @@
-package brainfuck.java.lang;
+package brainfuck.java.lang.context;
 
 import java.util.HashMap;
 import java.text.MessageFormat;
+import brainfuck.java.lang.Mode;
 
 public class Context {
 
     private HashMap<Integer, Byte> mem;
     public final ContextManipulator manipulator;
     public final IO io;
+    public final Mode mode;
     private Integer ptr;
+
+    public boolean isCompiled() {
+        return mode == Mode.COMPILE;
+    }
+
+    public boolean isInterpreted() {
+        return mode == Mode.INTERPRET;
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -42,7 +52,8 @@ public class Context {
         this.ptr = ptr;
     }
 
-    public Context() {
+    public Context(Mode mode) {
+        this.mode = mode;
         mem = new HashMap<>();
         ptr = 0;
         manipulator = new ContextManipulator(this);

@@ -1,4 +1,4 @@
-package brainfuck.java.code;
+package brainfuck.java.lang.code;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 public class Code {
     static final String VALID_CHARS = "[<+,.->]";
 
-    public String inner;
+    public final String inner;
 
     private String removeComments(String s) {
         return s
@@ -22,12 +22,15 @@ public class Code {
     }
 
     public Code(String filepath) {
+        String i;
         try {
             Path pathToFile = FileSystems.getDefault().getPath(filepath);
             String content = Files.readString(pathToFile, StandardCharsets.UTF_8);
-            inner = removeComments(content);
+            i = removeComments(content);
         } catch (IOException e) {
             System.out.println("File not found");
+            i = "";
         }
+        inner = i;
     }
 }

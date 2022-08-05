@@ -1,18 +1,21 @@
-package brainfuck.java.interpreter;
+package brainfuck.java.lang.processor;
 
-import brainfuck.java.code.Code;
-import brainfuck.java.lang.Context;
+import brainfuck.java.lang.code.Code;
+import brainfuck.java.lang.context.Context;
 
-public class Interpreter {
+public class Processor {
 
     Context ctx;
 
-    public Interpreter() {
-        ctx = new Context();
+    public Processor(Context ctx) {
+        this.ctx = ctx;
     }
 
     public void exec(Code code) {
         System.out.println();
+        if (code.inner.equals("")) {
+            return;
+        }
         for (char c : code.inner.toCharArray()) {
             switch (c) {
                 case '+':
@@ -30,12 +33,17 @@ public class Interpreter {
                 case '.':
                     ctx.io.printCurrentASCII();
                     break;
+                case ',':
+                    ctx.io.readPutToCurrent();
+                    break;
                 default:
                     continue;
             }
         }
+
         System.out.println();
         System.out.println();
         System.out.println(ctx);
     }
+
 }

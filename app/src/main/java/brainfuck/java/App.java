@@ -1,12 +1,12 @@
 package brainfuck.java;
 
-import brainfuck.java.code.Code;
-import brainfuck.java.interpreter.Interpreter;
+import brainfuck.java.lang.Brainfuck;
+import brainfuck.java.lang.Mode;
+import brainfuck.java.lang.code.Code;
 
 public class App {
     public static void main(String[] args) {
-        Code code = new Code("code.bf");
-        Interpreter interpreter = new Interpreter();
-        interpreter.exec(code);
+        Brainfuck bf = new Brainfuck(Mode.COMPILE);
+        bf.processor.exec(new Code("code.bf"));
     }
 }

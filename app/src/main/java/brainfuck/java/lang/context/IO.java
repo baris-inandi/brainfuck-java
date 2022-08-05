@@ -1,4 +1,4 @@
-package brainfuck.java.lang;
+package brainfuck.java.lang.context;
 
 import java.nio.charset.StandardCharsets;
 
@@ -25,6 +25,10 @@ public class IO {
     public String printCurrentASCII() {
         System.out.print(getCurrentASCII());
         return getCurrentASCII();
+    }
+
+    public void readPutToCurrent() {
+        System.out.println("get input here");
     }
 
     public IO(Context ctx) {

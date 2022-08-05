@@ -1,4 +1,4 @@
-package brainfuck.java.lang;
+package brainfuck.java.lang.context;
 
 public class ContextManipulator {
 
