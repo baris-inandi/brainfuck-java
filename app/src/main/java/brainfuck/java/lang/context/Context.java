@@ -3,6 +3,8 @@ package brainfuck.java.lang.context;
 import java.util.HashMap;
 import java.text.MessageFormat;
 import brainfuck.java.lang.Mode;
+import brainfuck.java.lang.context.utils.io.IO;
+import brainfuck.java.lang.context.utils.manipulator.ContextManipulator;
 
 public class Context {
 
@@ -18,6 +20,10 @@ public class Context {
 
     public boolean isInterpreted() {
         return mode == Mode.INTERPRET;
+    }
+
+    public Byte current() {
+        return getMem(ptr);
     }
 
     public String toString() {

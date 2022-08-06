@@ -2,21 +2,47 @@ package brainfuck.java.lang.processor;
 
 import brainfuck.java.lang.code.Code;
 import brainfuck.java.lang.context.Context;
+import brainfuck.java.lang.Mode;
 
 public class Processor {
 
-    Context ctx;
+    Mode mode;
 
-    public Processor(Context ctx) {
-        this.ctx = ctx;
+    public Processor(Mode mode) {
+        this.mode = mode;
     }
 
-    public void exec(Code code) {
+    public Context exec(Code code) {
+        Context out = eval(code.inner, new Context(mode));
         System.out.println();
-        if (code.inner.equals("")) {
-            return;
-        }
-        for (char c : code.inner.toCharArray()) {
+        return out;
+    }
+
+    public Context eval(String code, Context ctx) {
+        boolean looping = false;
+        for (char c : code.toCharArray()) {
+            if (c == '[') {
+                ctx.io.looper.start();
+                looping = true;
+            }
+            if (looping) {
+                ctx.io.looper.append(c);
+            }
+            if (c == ']') {
+                if (looping) {
+                    String expr = ctx.io.looper.end();
+                    if (expr == null) {
+                        continue;
+                    }
+                    while (ctx.current() != 0) {
+                        eval(expr, ctx);
+                    }
+                    looping = false;
+                } else {
+                    System.out.println("Syntax error: Unmatched ']'");
+                    System.exit(1);
+                }
+            }
             switch (c) {
                 case '+':
                     ctx.manipulator.increment();
@@ -40,10 +66,11 @@ public class Processor {
                     continue;
             }
         }
-
-        System.out.println();
-        System.out.println();
-        System.out.println(ctx);
+        if (!ctx.io.looper.isFlat()) {
+            System.out.println("Syntax error: Unmatched '['");
+            System.exit(1);
+        }
+        return ctx;
     }
 
 }

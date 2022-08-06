@@ -1,9 +1,12 @@
-package brainfuck.java.lang.context;
+package brainfuck.java.lang.context.utils.io;
 
 import java.nio.charset.StandardCharsets;
 
+import brainfuck.java.lang.context.Context;
+
 public class IO {
     Context ctx;
+    public final LoopContext looper = new LoopContext();
 
     public String getASCII(Integer index) {
         byte b = ctx.getMem(index);

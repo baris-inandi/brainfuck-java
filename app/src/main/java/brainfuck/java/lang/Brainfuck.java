@@ -9,6 +9,6 @@ public class Brainfuck {
 
     public Brainfuck(Mode mode) {
         ctx = new Context(mode);
-        processor = new Processor(ctx);
+        processor = new Processor(mode);
     }
 }
