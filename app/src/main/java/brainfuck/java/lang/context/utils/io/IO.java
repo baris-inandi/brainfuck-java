@@ -26,8 +26,9 @@ public class IO {
     }
 
     public String printCurrentASCII() {
-        System.out.print(getCurrentASCII());
-        return getCurrentASCII();
+        String x = getCurrentASCII();
+        System.out.print(x);
+        return x;
     }
 
     public void readPutToCurrent() {
