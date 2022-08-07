@@ -11,11 +11,11 @@ public class ContextManipulator {
     }
 
     public void increment() {
-        context.setMem(context.getPtr(), (byte) (context.getMem(context.getPtr()) + 1));
+        context.setMem(context.getPtr(), context.getMem(context.getPtr()) + 1);
     }
 
     public void decrement() {
-        context.setMem(context.getPtr(), (byte) (context.getMem(context.getPtr()) - 1));
+        context.setMem(context.getPtr(), context.getMem(context.getPtr()) - 1);
     }
 
     public void moveLeft() {

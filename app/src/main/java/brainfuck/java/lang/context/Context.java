@@ -8,7 +8,7 @@ import brainfuck.java.lang.context.utils.manipulator.ContextManipulator;
 
 public class Context {
 
-    private HashMap<Integer, Byte> mem;
+    private HashMap<Integer, Integer> mem;
     public final ContextManipulator manipulator;
     public final IO io;
     public final Mode mode;
@@ -22,7 +22,7 @@ public class Context {
         return mode == Mode.INTERPRET;
     }
 
-    public Byte current() {
+    public Integer current() {
         return getMem(ptr);
     }
 
@@ -34,20 +34,26 @@ public class Context {
         sb.append("    ╷ index    bytes   ascii\n");
         sb.append("    ├───────────────────────\n");
         for (int i = 0; i < mem.size(); i++) {
-            byte b = getMem(i);
+            Integer b = getMem(i);
             String asStr = io.getASCII(i);
             sb.append(MessageFormat.format("    │ [{0}]  ->  {1}  ->  ({2})\n", i, b, asStr));
         }
         return sb.toString();
     }
 
-    public Byte getMem(Integer address) {
-        Byte out = mem.get(address);
-        return out != null ? out : (byte) 0;
+    public Integer getMem(Integer address) {
+        Integer out = mem.get(address);
+        return out != null ? out : 0;
     }
 
-    public void setMem(Integer address, Byte value) {
-        mem.put(address, value);
+    public void setMem(Integer address, Integer value) {
+        int v = value;
+        if (v > 255) {
+            v -= 256;
+        } else if (v < 0) {
+            v += 256;
+        }
+        mem.put(address, v);
     }
 
     public Integer getPtr() {

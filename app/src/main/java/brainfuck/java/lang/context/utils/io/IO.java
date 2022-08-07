@@ -9,16 +9,8 @@ public class IO {
     public final LoopContext looper = new LoopContext();
 
     public String getASCII(Integer index) {
-        byte b = ctx.getMem(index);
-        byte[] ba = new byte[1];
-        ba[0] = b;
-        String asStr;
-        try {
-            asStr = new String(ba, StandardCharsets.US_ASCII);
-        } catch (Exception e) {
-            asStr = "";
-        }
-        return asStr;
+        return Character.toString(
+                (char) ((int) ctx.getMem(index)));
     }
 
     public String getCurrentASCII() {

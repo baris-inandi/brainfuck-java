@@ -8,7 +8,7 @@ import brainfuck.java.lang.context.Context;
 public class App {
     public static void main(String[] args) {
         Brainfuck bf = new Brainfuck(Mode.COMPILE);
-        Context x = bf.processor.exec(new Code("code.bf"));
+        Context x = bf.processor.exec(new Code("test.b"));
         System.out.println(x);
     }
 }
