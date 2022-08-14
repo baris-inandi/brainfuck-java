@@ -26,6 +26,7 @@ public class Processor {
                 looping = true;
             }
             if (looping) {
+                System.out.print(c);
                 ctx.io.looper.append(c);
             }
             if (c == ']') {
@@ -38,6 +39,7 @@ public class Processor {
                         eval(expr, ctx);
                     }
                     looping = false;
+                    System.out.println();
                 } else {
                     System.out.println("Syntax error: Unmatched ']'");
                     System.exit(1);
