@@ -4,7 +4,6 @@ import brainfuck.java.lang.context.Context;
 
 public class IO {
     Context ctx;
-    public final LoopContext looper = new LoopContext();
 
     public String getASCII(Integer index) {
         return Character.toString(

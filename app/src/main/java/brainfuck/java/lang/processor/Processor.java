@@ -18,32 +18,13 @@ public class Processor {
         return out;
     }
 
-    public Context eval(String code, Context ctx) {
-        boolean looping = false;
+    public Context eval(String code, Context context) {
+        Context ctx = context;
+        int depth = 0;
+        StringBuilder loopExprBuilder = new StringBuilder();
         for (char c : code.toCharArray()) {
-            if (c == '[') {
-                ctx.io.looper.start();
-                looping = true;
-            }
-            if (looping) {
-                System.out.print(c);
-                ctx.io.looper.append(c);
-            }
-            if (c == ']') {
-                if (looping) {
-                    String expr = ctx.io.looper.end();
-                    if (expr == null) {
-                        continue;
-                    }
-                    while (ctx.current() != 0) {
-                        eval(expr, ctx);
-                    }
-                    looping = false;
-                    System.out.println();
-                } else {
-                    System.out.println("Syntax error: Unmatched ']'");
-                    System.exit(1);
-                }
+            if (depth > 0) {
+                loopExprBuilder.append(c);
             }
             switch (c) {
                 case '+':
@@ -64,14 +45,32 @@ public class Processor {
                 case ',':
                     ctx.io.readPutToCurrent();
                     break;
+                case '[':
+                    depth++;
+                    break;
+                case ']':
+                    depth--;
+                    if (depth == 0) {
+                        String expr = loopExprBuilder.toString();
+                        System.out.println(expr);
+                        loopExprBuilder = new StringBuilder();
+                        while (ctx.continueLoop()) {
+                            ctx = eval(expr, ctx);
+                        }
+                    }
+                    break;
                 default:
                     continue;
             }
+            System.out.println(depth);
         }
-        if (!ctx.io.looper.isFlat()) {
-            System.out.println("Syntax error: Unmatched '['");
-            System.exit(1);
-        }
+        // if (depth > 0) {
+        // System.out.println("Syntax error: Unmatched '['");
+        // System.exit(1);
+        // } else if (depth < 0) {
+        // System.out.println("Syntax error: Unmatched ']'");
+        // System.exit(1);
+        // }
         return ctx;
     }
 

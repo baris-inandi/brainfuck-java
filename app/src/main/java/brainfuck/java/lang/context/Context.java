@@ -22,6 +22,10 @@ public class Context {
         return mode == Mode.INTERPRET;
     }
 
+    public boolean continueLoop() {
+        return current() != 0;
+    }
+
     public Integer current() {
         return getMem(ptr);
     }
