@@ -2,7 +2,6 @@ package brainfuck.java.lang.context;
 
 import java.util.HashMap;
 import java.text.MessageFormat;
-import brainfuck.java.lang.Mode;
 import brainfuck.java.lang.context.utils.io.IO;
 import brainfuck.java.lang.context.utils.manipulator.ContextManipulator;
 
@@ -11,16 +10,7 @@ public class Context {
     private HashMap<Integer, Integer> mem;
     public final ContextManipulator manipulator;
     public final IO io;
-    public final Mode mode;
     private Integer ptr;
-
-    public boolean isCompiled() {
-        return mode == Mode.COMPILE;
-    }
-
-    public boolean isInterpreted() {
-        return mode == Mode.INTERPRET;
-    }
 
     public boolean continueLoop() {
         return current() != 0;
@@ -68,8 +58,7 @@ public class Context {
         this.ptr = ptr;
     }
 
-    public Context(Mode mode) {
-        this.mode = mode;
+    public Context() {
         mem = new HashMap<>();
         ptr = 0;
         manipulator = new ContextManipulator(this);

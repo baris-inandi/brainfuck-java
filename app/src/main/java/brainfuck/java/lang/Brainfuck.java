@@ -7,8 +7,8 @@ public class Brainfuck {
     public final Context ctx;
     public final Processor processor;
 
-    public Brainfuck(Mode mode) {
-        ctx = new Context(mode);
-        processor = new Processor(mode);
+    public Brainfuck() {
+        ctx = new Context();
+        processor = new Processor();
     }
 }

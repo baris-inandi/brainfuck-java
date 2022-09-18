@@ -2,18 +2,11 @@ package brainfuck.java.lang.processor;
 
 import brainfuck.java.lang.code.Code;
 import brainfuck.java.lang.context.Context;
-import brainfuck.java.lang.Mode;
 
 public class Processor {
 
-    Mode mode;
-
-    public Processor(Mode mode) {
-        this.mode = mode;
-    }
-
     public Context exec(Code code) {
-        Context out = eval(code.inner, new Context(mode));
+        Context out = eval(code.inner, new Context());
         System.out.println();
         return out;
     }
