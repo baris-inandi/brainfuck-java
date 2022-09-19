@@ -1,6 +1,7 @@
 package brainfuck.java.lang.compiler.intermediate_generator;
 
 import brainfuck.java.lang.code.Code;
+import brainfuck.java.lang.compiler.intermediate_generator.intermediate_builder.IntermediateBuilder;
 
 public class IntermediateGenerator {
     private static final String INTERMEDIATE_BOILERPLATE = """
@@ -18,7 +19,7 @@ public class IntermediateGenerator {
         int depth = 0;
         int repSymbolCount = 1;
         char prevC = ' ';
-        StringBuilder intermediateBuilder = new StringBuilder();
+        IntermediateBuilder ib = new IntermediateBuilder();
         for (int i = 0; i < code.length(); i++) {
             char c = code.charAt(i);
             if (prevC == c
@@ -31,26 +32,29 @@ public class IntermediateGenerator {
             }
             switch (c) {
                 case '+':
-                    intermediateBuilder.append(String.format("*p+=%d;", repSymbolCount));
+                    ib.appendf("*p+=%d;", repSymbolCount);
                     break;
                 case '-':
-                    intermediateBuilder.append(String.format("*p-=%d;", repSymbolCount));
+                    ib.appendf("*p-=%d;", repSymbolCount);
                     break;
                 case '<':
-                    intermediateBuilder.append(String.format("p+=%d;", repSymbolCount));
+                    ib.appendf("p+=%d;", repSymbolCount);
                     break;
                 case '>':
-                    intermediateBuilder.append(String.format("p-=%d;", repSymbolCount));
+                    ib.appendf("p-=%d;", repSymbolCount);
                     break;
                 case '.':
-                    intermediateBuilder.append(String.format("p-=%d;", repSymbolCount));
+                    ib.append("putc(*p, stdout);");
                     break;
                 case ',':
+                    ib.append("*p=getchar();");
                     break;
                 case '[':
+                    ib.append("while(*p){");
                     depth++;
                     break;
                 case ']':
+                    ib.append("}");
                     depth--;
                     break;
                 default:

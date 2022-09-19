@@ -5,6 +5,7 @@
     "diffEditor.codeLens": true,
     "java.format.settings.url": "eclipse-formatter.xml",
     "cSpell.words": [
-        "appendf"
+        "appendf",
+        "putc"
     ]
 }
