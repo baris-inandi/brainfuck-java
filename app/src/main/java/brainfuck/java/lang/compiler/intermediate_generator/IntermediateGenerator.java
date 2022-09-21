@@ -70,7 +70,7 @@ public class IntermediateGenerator {
             System.err.println("Syntax error: Unmatched ]");
             System.exit(1);
         }
-        return String.format(INTERMEDIATE_BOILERPLATE, intermediateBuilder.toString());
+        return String.format(INTERMEDIATE_BOILERPLATE, ib.toString());
     }
 
 }
