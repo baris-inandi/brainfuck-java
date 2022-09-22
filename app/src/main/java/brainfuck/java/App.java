@@ -6,7 +6,13 @@ import brainfuck.java.lang.code.Code;
 public class App {
     public static void main(String[] args) {
         Brainfuck bf = new Brainfuck();
-        Code code = new Code("./examples/hello.bf");
-        bf.compiler.compile(code);
+        try {
+            String filepath = args[0];
+            System.out.println(filepath);
+            Code code = new Code(filepath);
+            bf.compiler.compile(code);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
